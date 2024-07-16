@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import chroma from "chroma-js";
 
 const config: Config = {
   content: [
@@ -12,6 +13,11 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      colors: {
+        primary: "#EE1C37",
+        "primary-dark": chroma("#EE1C37").darken().hex() as string,
+        "primary-light": chroma("#EE1C37").brighten().hex() as string,
       },
     },
   },
