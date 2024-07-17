@@ -2,6 +2,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
+  User as FirebaseUser,
 } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
@@ -50,10 +52,10 @@ export const authenticated = (): boolean => {
   return !!auth.currentUser;
 };
 
-export const getUserId = (): string => {
-  if (auth.currentUser) {
-    return auth.currentUser.uid;
-  } else {
-    throw new Error("User not authenticated");
-  }
+export const manageAuthObserver = (
+  callback: (user: FirebaseUser | null) => void
+) => {
+  onAuthStateChanged(auth, callback);
 };
+
+export type AuthenticationUser = FirebaseUser;
