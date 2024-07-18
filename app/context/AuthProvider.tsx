@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return unsubscribe;
   }, []);
 
-  const content = user ? children : <div>Not Logged In</div>;
+  const content = user ? children : <div id='not-logged-in'>Not Logged In</div>;
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, setUser }}>
