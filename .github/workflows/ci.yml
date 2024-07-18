@@ -1,0 +1,63 @@
+name: Next.js CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+      - feature/*
+
+env:
+  DATABASE_URL: "mysql://avnadmin:AVNS_5gxDqFtJ52ku2dmBbtM@mysql-3dee3dce-villa-amrita.a.aivencloud.com:23796/defaultdb?ssl-mode=REQUIRED"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Installing dependencies
+        run: npm install
+
+      - name: Type checking
+        run: npm run typecheck
+
+      - name: Linting
+        run: npm run lint
+
+      - name: Building
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Installing dependencies
+        run: npm install
+
+      - name: Run E2E tests (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          config-file: cypress.config.ts
+          build: npm run build
+          start: npm start
