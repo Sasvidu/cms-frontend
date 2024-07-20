@@ -27,9 +27,13 @@ const RemoveBtn = ({ id, title }: RemoveBtnProps) => {
   return (
     <button
       onClick={removeTopic}
-      className='p-2 bg-primary text-white rounded-lg transition-transform transform hover:scale-110 hover:bg-primary-dark active:scale-95'
+      className='bg-primary text-white rounded-lg transition-transform transform hover:scale-110 hover:bg-primary-dark active:scale-95 flex items-center justify-center
+      p-2
+      text-xs md:text-sm lg:text-base
+      w-8 md:w-10
+      h-8 md:h-10'
     >
-      <HiOutlineTrash size={24} />
+      <HiOutlineTrash size={20} className='md:size-24 lg:size-28' />
     </button>
   );
 };

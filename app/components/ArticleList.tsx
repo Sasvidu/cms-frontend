@@ -1,17 +1,20 @@
 import React from "react";
-import Topic from "./Topic";
+import DailyArticleList from "./DailyArticleList";
 
-interface Article {
-  ID: string;
+interface ArticleType {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: string | null;
   Title: string;
   Body: string;
 }
 
-const TopicList = async () => {
+const ArticleList = async () => {
   const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
   const API_URL = BASE_API_URL + "articles/";
 
-  const fetchArticles = async (): Promise<Article[]> => {
+  const fetchArticles = async (): Promise<ArticleType[]> => {
     try {
       const response = await fetch(API_URL);
       if (!response.ok) {
@@ -25,20 +28,10 @@ const TopicList = async () => {
     }
   };
 
-  const topics = await fetchArticles();
+  const articles = await fetchArticles();
 
-  return (
-    <div className='w-full px-10'>
-      {topics.map((topic) => (
-        <Topic
-          key={topic.ID}
-          id={topic.ID}
-          title={topic.Title}
-          body={topic.Body}
-        />
-      ))}
-    </div>
-  );
+  return <DailyArticleList articles={articles} />;
 };
 
-export default TopicList;
+export default ArticleList;
+export type { ArticleType };
