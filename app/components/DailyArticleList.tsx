@@ -54,6 +54,11 @@ const DailyArticleList = ({ articles }: DailyArticleListProps) => {
             body={article.Body}
           />
         ))}
+        {filteredArticles.length === 0 && (
+          <p className='text-gray-600 text-md md:text-lg w-full h-full flex justify-center items-center text-center'>
+            No articles found for the selected date.
+          </p>
+        )}
       </div>
     </div>
   );

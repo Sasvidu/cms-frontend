@@ -1,5 +1,6 @@
 import React from "react";
 import DailyArticleList from "./DailyArticleList";
+import axios from "axios";
 
 interface ArticleType {
   ID: number;
@@ -16,12 +17,14 @@ const ArticleList = async () => {
 
   const fetchArticles = async (): Promise<ArticleType[]> => {
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      return data.articles;
+      const response = await axios.get(API_URL, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      return response.data.articles;
     } catch (error) {
       console.error("Error fetching the articles:", error);
       return [];
