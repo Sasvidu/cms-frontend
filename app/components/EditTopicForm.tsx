@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { FormEvent } from "react";
+import React, { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 interface EditTopicFormProps {
@@ -43,28 +42,28 @@ const EditTopicForm = ({ id, title, description }: EditTopicFormProps) => {
   return (
     <div>
       <form
-        className="flex flex-col gap-3"
+        className='flex flex-col gap-3'
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
         <input
-          type="text"
+          type='text'
           placeholder={title}
-          className="border border-slate-500 px-8 py-2 focus:border-orange-400"
+          className='border border-slate-500 px-8 py-2 focus:border-orange-400'
           onChange={(e) => setNewTitle(e.target.value)}
           value={newTitle}
         ></input>
         <input
-          type="text"
+          type='text'
           placeholder={description}
-          className="border border-slate-500 px-8 py-2 focus:border-orange-400"
+          className='border border-slate-500 px-8 py-2 focus:border-orange-400'
           onChange={(e) => setNewDescription(e.target.value)}
           value={newDescription}
         ></input>
         <button
-          type="submit"
-          className="mt-3 w-fit bg-cyan-500 px-8 py-2 text-white transition-all hover:rounded-lg hover:bg-blue-500"
+          type='submit'
+          className='mt-3 w-fit bg-cyan-500 px-8 py-2 text-white transition-all hover:rounded-lg hover:bg-blue-500'
         >
           Edit Topic
         </button>

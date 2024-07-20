@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { HiOutlineTrash } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { HiOutlineTrash } from "react-icons/hi";
 
 interface RemoveBtnProps {
   id: string;
@@ -13,14 +14,25 @@ const RemoveBtn = ({ id, title }: RemoveBtnProps) => {
   const router = useRouter();
 
   const removeTopic = async () => {
+    const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
+    const API_URL = `${BASE_API_URL}articles/${id}`;
+
     const confirmed = confirm(`Do you want to delete ${title}?`);
     if (confirmed) {
-      // const res = await fetch(`../api/topics?id=${id}`, {
-      //   method: "DELETE",
-      // });
-      // if (res.ok) {
-      //   router.refresh();
-      // }
+      try {
+        const res = await axios.delete(API_URL);
+        if (res.status === 200) {
+          router.refresh();
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Axios Error:", error.message);
+          alert(`Error: ${error.message}`);
+        } else {
+          console.error("Unexpected Error:", error);
+          alert(`Unexpected Error: ${error}`);
+        }
+      }
     }
   };
 

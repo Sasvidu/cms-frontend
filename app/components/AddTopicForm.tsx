@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { FormEvent } from "react";
+import React, { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 const AddTopicForm = () => {
