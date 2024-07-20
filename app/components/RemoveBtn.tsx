@@ -13,9 +13,9 @@ interface RemoveBtnProps {
 const RemoveBtn = ({ id, title }: RemoveBtnProps) => {
   const router = useRouter();
 
-  const removeTopic = async () => {
+  const removeArticle = async () => {
     const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
-    const API_URL = `${BASE_API_URL}articles/${id}`;
+    const API_URL = `${BASE_API_URL}articles/delete/${id}`;
 
     const confirmed = confirm(`Do you want to delete ${title}?`);
     if (confirmed) {
@@ -38,7 +38,7 @@ const RemoveBtn = ({ id, title }: RemoveBtnProps) => {
 
   return (
     <button
-      onClick={removeTopic}
+      onClick={removeArticle}
       className='bg-primary text-white rounded-lg transition-transform transform hover:scale-110 hover:bg-primary-dark active:scale-95 flex items-center justify-center
       p-2
       text-xs md:text-sm lg:text-base

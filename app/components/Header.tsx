@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <div className='md:hidden bg-gradient-to-br from-primary-light to-primary text-white p-4 flex items-center justify-between shadow-lg'>
-      <h1 className='text-xl font-bold'>Dashboard</h1>
+      <h1 className='text-xl font-bold'>NewsNexus</h1>
       <button onClick={() => setIsOpen(!isOpen)} className='text-2xl'>
         {isOpen ? <IoMdClose /> : <HiMenu />}
       </button>

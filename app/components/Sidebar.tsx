@@ -26,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <div className='hidden md:flex flex-col w-64 bg-gradient-to-br from-primary-light to-primary text-white p-6 shadow-lg'>
-      <h2 className='text-2xl font-bold mb-6'>Dashboard</h2>
+      <h2 className='text-2xl font-bold mb-6'>NewsNexus</h2>
       <ul>
         <li className='mb-4'>
           <Link
