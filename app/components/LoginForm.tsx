@@ -45,7 +45,7 @@ const SigninForm = () => {
 
   return (
     <div className='absolute mb-8 mt-12 w-[95%] max-w-lg rounded shadow-md bg-slate-100 p-8 lg:mb-0 lg:mt-0'>
-      <h1 className='mb-8 text-center text-3xl font-bold '>Sign in</h1>
+      <h1 className='mb-8 text-center text-3xl font-bold '>Login</h1>
       <form className='space-y-4' onSubmit={handleSignIn}>
         <div className='flex flex-col'>
           <label htmlFor='email' className={label}>
@@ -87,7 +87,7 @@ const SigninForm = () => {
               className='btn-primary cursor-pointer rounded px-6 py-2 lg:px-6'
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : "Sign in"}
+              {isSubmitting ? "Logging in..." : "Log in"}
             </button>
           </div>
         </div>
