@@ -23,7 +23,7 @@ describe("Sign-in Form Sign-in functionality", () => {
     cy.get("button[type='submit']").click();
 
     //Check for UI Change, Navigation and Error Message
-    cy.get("button[type='submit']").contains("Signing in...");
+    cy.get("button[type='submit']").contains("Logging in...");
     cy.wait(5000);
     cy.url().should("equal", "http://localhost:3000/login");
 
@@ -41,7 +41,7 @@ describe("Sign-in Form Sign-in functionality", () => {
     cy.get("button[type='submit']").click();
 
     //Check for UI Change, Navigation and Error Message
-    cy.get("button[type='submit']").contains("Signing in...");
+    cy.get("button[type='submit']").contains("Logging in...");
     cy.wait(5000);
     cy.url().should("equal", "http://localhost:3000/login");
 
@@ -59,7 +59,7 @@ describe("Sign-in Form Sign-in functionality", () => {
     cy.get("button[type='submit']").click();
 
     //Check for UI Change, Navigation and Error Message
-    cy.get("button[type='submit']").contains("Signing in...");
+    cy.get("button[type='submit']").contains("Logging in...");
     cy.wait(5000);
     cy.url().should("equal", "http://localhost:3000/login");
 
@@ -77,7 +77,7 @@ describe("Sign-in Form Sign-in functionality", () => {
     cy.get("button[type='submit']").click();
 
     //Check for UI Change and Navigation
-    cy.get("button[type='submit']").contains("Signing in...");
+    cy.get("button[type='submit']").contains("Logging in...");
     cy.url().should("contain", "dashboard");
     //See the user doesn't get redirected elsewhere after sign in
     cy.wait(5000);
