@@ -14,7 +14,7 @@ const RemoveBtn = ({ id, title }: RemoveBtnProps) => {
   const router = useRouter();
 
   const removeArticle = async () => {
-    const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
+    const BASE_API_URL = process.env.API_URL;
     const API_URL = `${BASE_API_URL}articles/delete/${id}`;
 
     const confirmed = confirm(`Do you want to delete ${title}?`);
