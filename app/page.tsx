@@ -2,6 +2,8 @@ import Link from "next/link";
 import TodayNews from "./components/TodayNews";
 import { AiOutlineLogin } from "react-icons/ai";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <main className='min-h-screen flex flex-col'>
