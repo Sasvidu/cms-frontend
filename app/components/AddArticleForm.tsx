@@ -3,6 +3,8 @@
 import React, { useState, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AddArticleForm = () => {
   const [title, setTitle] = useState("");
@@ -71,14 +73,14 @@ const AddArticleForm = () => {
           >
             Description:
           </label>
-          <textarea
+          <ReactQuill
             id='description'
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            className='border border-primary-light px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
-            rows={6}
-          ></textarea>
+            onChange={(value) => setDescription(value)}
+            className='border border-primary-light rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
+            theme='snow'
+            modules={quillModules}
+          />
         </div>
         <div className='mt-10 flex justify-center'>
           <br />
@@ -94,6 +96,17 @@ const AddArticleForm = () => {
       </form>
     </div>
   );
+};
+
+const quillModules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["bold", "italic", "underline"],
+    ["link"],
+    [{ align: [] }],
+    ["clean"],
+  ],
 };
 
 export default AddArticleForm;
