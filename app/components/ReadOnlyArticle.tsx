@@ -1,4 +1,5 @@
 import React from "react";
+import ReadOnlyRichText from "./ReadOnlyRichText";
 
 interface ReadOnlyArticleProps {
   title: string;
@@ -13,7 +14,7 @@ const ReadOnlyArticle = ({ title, body }: ReadOnlyArticleProps) => {
           {title}
         </h2>
       </div>
-      <p className='text-gray-800 text-md md:text-lg py-4'>{body}</p>
+      <ReadOnlyRichText content={body} />
     </div>
   );
 };

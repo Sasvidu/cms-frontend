@@ -3,6 +3,8 @@
 import React, { useState, useEffect, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface EditArticleFormProps {
   articleId: string;
@@ -35,7 +37,7 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
 
       fetchArticle();
     }
-  }, []);
+  }, [articleId]);
 
   const updateArticle = async (e: MouseEvent) => {
     const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
@@ -98,20 +100,19 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
           >
             Description:
           </label>
-          <textarea
+          <ReactQuill
             id='description'
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            className='border border-primary-light px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
-            rows={6}
-          ></textarea>
+            onChange={(value) => setDescription(value)}
+            className='border border-primary-light rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
+            theme='snow'
+          />
         </div>
         <div className='mt-10 flex justify-center'>
           <br />
           <button
             type='button'
-            className='bg-primary mt-6 flex items-center gap-2 font-bold text-md md:text-lg transition-transform transform hover:scale-105 text-white p-3 rounded-lg shadow-lg'
+            className='bg-primary mt-6 flex items-center gap-2 font-bold text-md md:text-lg transition-transform transform hover:scale-[102%] text-white p-3 rounded-lg shadow-lg'
             disabled={false}
             onClick={updateArticle}
           >

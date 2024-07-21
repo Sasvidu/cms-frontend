@@ -9,3 +9,36 @@
 .btn-secondary {
   @apply border border-primary bg-white text-primary transition-colors hover:border-primary-dark hover:text-primary-dark;
 }
+
+.reset-rich-text {
+  all: unset;
+  font-family: poppins, sans-serif;
+}
+
+.reset-rich-text ul,
+.reset-rich-text ol {
+  list-style: initial;
+  margin: 0;
+  padding-left: 2rem;
+}
+
+.reset-rich-text li {
+  margin: 0;
+  padding: 0;
+}
+
+.reset-rich-text blockquote {
+  border-left: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.reset-rich-text h1,
+.reset-rich-text h2,
+.reset-rich-text h3,
+.reset-rich-text h4,
+.reset-rich-text h5,
+.reset-rich-text h6 {
+  margin: 0;
+  font-size: initial;
+}
