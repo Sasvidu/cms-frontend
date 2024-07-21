@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { storage } from "@/config/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const AddArticleForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState<File | null>(null);
 
   const router = useRouter();
 
@@ -28,8 +31,19 @@ const AddArticleForm = () => {
           "Content-Type": "application/json",
         },
       });
+
       if (res.status === 200) {
         alert("Article created successfully!");
+        const articleId = res.data.article.ID;
+
+        if (image) {
+          const imageRef = ref(storage, `articles/${articleId}/${image.name}`);
+          await uploadBytes(imageRef, image);
+          const imageUrl = await getDownloadURL(imageRef);
+
+          console.log("Image URL:", imageUrl);
+        }
+
         router.push("/dashboard");
         router.refresh();
       } else {
@@ -80,6 +94,21 @@ const AddArticleForm = () => {
             className='border border-primary-light rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
             theme='snow'
             modules={quillModules}
+          />
+        </div>
+        <div className='flex flex-col mt-4'>
+          <label
+            htmlFor='image'
+            className='text-lg font-semibold text-gray-700 mb-2'
+          >
+            Upload Image:
+          </label>
+          <input
+            type='file'
+            id='image'
+            accept='image/*'
+            onChange={(e) => setImage(e.target.files?.[0] || null)}
+            className='border border-primary-light px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
           />
         </div>
         <div className='mt-10 flex justify-center'>
