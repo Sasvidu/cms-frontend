@@ -8,7 +8,8 @@ interface ReadOnlyRichTextProps {
 }
 
 const ReadOnlyRichText = ({ content }: ReadOnlyRichTextProps) => {
-  const sanitizedContent = DOMPurify.sanitize(content);
+  //const sanitizedContent = DOMPurify.sanitize(content);
+  const sanitizedContent = content;
 
   return (
     <div
