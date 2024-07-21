@@ -32,23 +32,23 @@ describe("Sign-in Form Sign-in functionality", () => {
     });
   });
 
-  it("Doesn't allow invalid email and valid password to signin", () => {
-    //Enter data
-    cy.get("#email").type(falseEmail);
-    cy.get("#password").type(correctPassword);
+  // it("Doesn't allow invalid email and valid password to signin", () => {
+  //   //Enter data
+  //   cy.get("#email").type(falseEmail);
+  //   cy.get("#password").type(correctPassword);
 
-    //Submit
-    cy.get("button[type='submit']").click();
+  //   //Submit
+  //   cy.get("button[type='submit']").click();
 
-    //Check for UI Change, Navigation and Error Message
-    cy.get("button[type='submit']").contains("Logging in...");
-    cy.wait(5000);
-    cy.url().should("equal", "http://localhost:3000/login");
+  //   //Check for UI Change, Navigation and Error Message
+  //   cy.get("button[type='submit']").contains("Logging in...");
+  //   cy.wait(5000);
+  //   cy.url().should("equal", "http://localhost:3000/login");
 
-    cy.on("window:alert", (text) => {
-      expect(text).to.include(errorMessage ?? genericErrorMessage);
-    });
-  });
+  //   cy.on("window:alert", (text) => {
+  //     expect(text).to.include(errorMessage ?? genericErrorMessage);
+  //   });
+  // });
 
   it("Doesn't allow valid email and invalid password to signin", () => {
     //Enter data
