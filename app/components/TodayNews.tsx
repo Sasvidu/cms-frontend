@@ -35,6 +35,7 @@ const TodayNews = async () => {
       {todayArticles.map((article) => (
         <ReadOnlyArticle
           key={article.ID}
+          id={article.ID}
           title={article.Title}
           body={article.Body}
         />

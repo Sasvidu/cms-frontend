@@ -2,6 +2,7 @@ import React from "react";
 import RemoveBtn from "./RemoveBtn";
 import EditBtn from "./EditBtn";
 import ReadOnlyRichText from "./ReadOnlyRichText";
+import ArticleImage from "./ArticleImage";
 
 interface ArticleProps {
   id: number;
@@ -22,7 +23,7 @@ const Article = ({ id, title, body }: ArticleProps) => {
             <EditBtn href={`dashboard/editArticle/${id}`} />
           </div>
         </div>
-        <ReadOnlyRichText content={body} />{" "}
+        <ReadOnlyRichText content={body} /> <ArticleImage articleId={id} />
       </div>
 
       <div className='hidden md:flex my-4 items-start justify-between rounded-lg border border-primary-light shadow-lg p-6 bg-gradient-to-br from-gray-50 to-white transform transition-transform hover:scale-[102%] hover:shadow-2xl'>
@@ -30,7 +31,7 @@ const Article = ({ id, title, body }: ArticleProps) => {
           <h2 className='text-primary text-xl md:text-2xl font-bold mb-2'>
             {title}
           </h2>
-          <ReadOnlyRichText content={body} />{" "}
+          <ReadOnlyRichText content={body} /> <ArticleImage articleId={id} />
         </div>
         <div className='flex gap-1 md:gap-2'>
           <RemoveBtn id={id.toString()} title={title} />

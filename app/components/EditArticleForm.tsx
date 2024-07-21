@@ -6,6 +6,14 @@ import useArticleStore from "../store/articleStore";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  listAll,
+  deleteObject,
+} from "firebase/storage";
+import { storage } from "@/config/firebase";
 
 interface EditArticleFormProps {
   articleId: string;
@@ -14,6 +22,7 @@ interface EditArticleFormProps {
 const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const router = useRouter();
 
   const { getArticleById } = useArticleStore();
@@ -27,6 +36,8 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
   }, [articleId, getArticleById]);
 
   const updateArticle = async (e: MouseEvent) => {
+    e.preventDefault();
+
     const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL;
     const API_URL = BASE_API_URL + `articles/edit/${articleId}`;
 
@@ -36,19 +47,45 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
     }
 
     try {
+      // Update the article text
       const putData = JSON.stringify({ Title: title, Body: description });
-      const res = await axios.put(API_URL, putData, {
+      await axios.put(API_URL, putData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      if (res.status === 200) {
-        alert("Article updated successfully!");
-        router.push("/dashboard");
-        router.refresh();
+
+      // Handle image upload if a new one is selected
+      if (imageFile) {
+        const folderRef = ref(storage, `articles/${articleId}`);
+        const imageList = await listAll(folderRef);
+        if (imageList.items.length > 0) {
+          const firstImageRef = imageList.items[0];
+          await deleteObject(firstImageRef);
+        }
+        const imageRef = ref(
+          storage,
+          `articles/${articleId}/${imageFile.name}`
+        );
+        const uploadTask = uploadBytesResumable(imageRef, imageFile);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.error("Error uploading image:", error);
+            alert("Failed to upload image.");
+          },
+          () => {
+            alert("Article updated successfully with new image!");
+          }
+        );
       } else {
-        throw new Error("Failed to update the Article");
+        alert("Article updated successfully!");
       }
+
+      router.push("/dashboard");
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("Failed to update the Article. Error: " + error);
@@ -95,12 +132,30 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
             theme='snow'
           />
         </div>
+        <div className='flex flex-col mt-4'>
+          <label
+            htmlFor='image'
+            className='text-lg font-semibold text-gray-700 mb-2'
+          >
+            Image:
+          </label>
+          <input
+            type='file'
+            id='image'
+            accept='image/*'
+            onChange={(e) => {
+              if (e.target.files) {
+                setImageFile(e.target.files[0]);
+              }
+            }}
+            className='border border-primary-light px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full'
+          />
+        </div>
         <div className='mt-10 flex justify-center'>
           <br />
           <button
             type='button'
             className='bg-primary mt-6 flex items-center gap-2 font-bold text-md md:text-lg transition-transform transform hover:scale-[102%] text-white p-3 rounded-lg shadow-lg'
-            disabled={false}
             onClick={updateArticle}
           >
             <span>Update Article</span>
