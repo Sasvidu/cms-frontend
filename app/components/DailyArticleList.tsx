@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArticleType } from "./ArticleList";
-import { AiOutlinePlus } from "react-icons/ai";
+import useArticleStore from "../store/articleStore";
 import Article from "./Article";
-import { format } from "date-fns";
 import DatePicker from "react-datepicker";
+import { AiOutlinePlus } from "react-icons/ai";
+import { type ArticleType } from "./ArticleList";
+import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface DailyArticleListProps {
@@ -17,6 +18,7 @@ const DailyArticleList = ({ articles }: DailyArticleListProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const router = useRouter();
+  const { setArticles } = useArticleStore();
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -33,6 +35,10 @@ const DailyArticleList = ({ articles }: DailyArticleListProps) => {
   const handleAddArticle = () => {
     router.push("/dashboard/addArticle");
   };
+
+  useEffect(() => {
+    setArticles(articles);
+  }, [articles, setArticles]);
 
   return (
     <div className='w-full px-4 md:px-10'>

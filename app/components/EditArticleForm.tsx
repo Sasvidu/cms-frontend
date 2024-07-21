@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
+import useArticleStore from "../store/articleStore";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -15,29 +16,15 @@ const EditArticleForm = ({ articleId }: EditArticleFormProps) => {
   const [description, setDescription] = useState("");
   const router = useRouter();
 
+  const { getArticleById } = useArticleStore();
+
   useEffect(() => {
-    if (articleId) {
-      const fetchArticle = async () => {
-        try {
-          const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
-          const API_URL = BASE_API_URL + `articles/${articleId}`;
-
-          const res = await axios.get(API_URL);
-          const article = res.data.article;
-          const title = article.Title;
-          const body = article.Body;
-
-          setTitle(title);
-          setDescription(body);
-        } catch (error) {
-          console.error(error);
-          alert("Failed to fetch the Article. Error: " + error);
-        }
-      };
-
-      fetchArticle();
+    const article = getArticleById(Number(articleId));
+    if (article) {
+      setTitle(article.Title);
+      setDescription(article.Body);
     }
-  }, [articleId]);
+  }, [articleId, getArticleById]);
 
   const updateArticle = async (e: MouseEvent) => {
     const BASE_API_URL = process.env.API_URL ?? "http://localhost:8080/";
