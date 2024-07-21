@@ -33,12 +33,32 @@
   margin: 0;
 }
 
-.reset-rich-text h1,
-.reset-rich-text h2,
-.reset-rich-text h3,
-.reset-rich-text h4,
-.reset-rich-text h5,
+.reset-rich-text h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.reset-rich-text h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.reset-rich-text h3 {
+  margin: 0;
+  font-size: 1.17em;
+}
+
+.reset-rich-text h4 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.reset-rich-text h5 {
+  margin: 0;
+  font-size: 0.83em;
+}
+
 .reset-rich-text h6 {
   margin: 0;
-  font-size: initial;
+  font-size: 0.67em;
 }

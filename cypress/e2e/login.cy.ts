@@ -78,6 +78,7 @@ describe("Sign-in Form Sign-in functionality", () => {
 
     //Check for UI Change and Navigation
     cy.get("button[type='submit']").contains("Logging in...");
+    cy.wait(1000);
     cy.url().should("contain", "dashboard");
     //See the user doesn't get redirected elsewhere after sign in
     cy.wait(5000);
