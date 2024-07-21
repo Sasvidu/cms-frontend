@@ -10,7 +10,7 @@ const ManageUsers = () => {
   const [deleteEmail, setDeleteEmail] = useState("");
 
   const router = useRouter();
-  const API_URL = process.env.API_URL ?? "http://localhost:8080/";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleCreateUser = async (e: FormEvent) => {
     e.preventDefault();
